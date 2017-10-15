@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "declaration": true,
+        "moduleResolution": "node",
+        "outDir": "./lib"
+    },
+    "files": [
+        "src/sanitizer.ts"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}
