@@ -2,8 +2,8 @@ export interface SanitizerOptions {
     imageClass?: string
     removeUnbalanced?: boolean
     removeUnknown?: boolean
-    isEnableLink?: boolean
-    isEnableImg?: boolean
+    link?: boolean
+    image?: boolean
 }
 
 export function sanitizer_plugin(md, options: SanitizerOptions = {}) {
@@ -68,7 +68,7 @@ export function sanitizer_plugin(md, options: SanitizerOptions = {}) {
 
             // images
             match = tag.match(regexpImage)
-            if (match) {
+            if (match && options.hasOwnProperty("image") && options.image) {
                 attrs = match[1]
                 url = getUrl(attrs.match(/src="([^"<>]*)"/i)[1])
                 alt = attrs.match(/alt="([^"<>]*)"/i)
@@ -88,7 +88,7 @@ export function sanitizer_plugin(md, options: SanitizerOptions = {}) {
             // links
             tagnameIndex = allowedTags.indexOf("a")
             match = tag.match(regexpLinkOpen)
-            if (match) {
+            if (match && options.hasOwnProperty("link") && options.link) {
                 attrs = match[1]
                 url = getUrl(attrs.match(/href="([^"<>]*)"/i)[1])
                 title = attrs.match(/title="([^"<>]*)"/i)
@@ -111,12 +111,14 @@ export function sanitizer_plugin(md, options: SanitizerOptions = {}) {
             }
 
             // standalone tags
+            // TODO
             match = tag.match(/<(br|hr)\s?\/?>/i)
             if (match) {
                 return "<" + match[1].toLowerCase() + ">"
             }
 
             // whitelisted tags
+            // TODO
             match = tag.match(/<(\/?)(b|blockquote|code|em|h[1-6]|li|ol(?: start="\d+")?|p|pre|s|sub|sup|strong|ul)>/i)
             if (match && !/<\/ol start="\d+"/i.test(tag)) {
                 runBalancer = true
@@ -144,7 +146,7 @@ export function sanitizer_plugin(md, options: SanitizerOptions = {}) {
 
     function sanitizeInlineAndBlock(state) {
         let i: number
-        let blkIdx
+        let blkIdx: number
         let inlineTokens
 
         // reset counts
@@ -177,10 +179,10 @@ export function sanitizer_plugin(md, options: SanitizerOptions = {}) {
         if (runBalancer === false) {
             return
         }
-        let blkIdx
+        let blkIdx: number
         let inlineTokens
 
-        function replaceUnbalancedTag(str, tagname) {
+        function replaceUnbalancedTag(str: string, tagname: string): string {
             let openingRegexp: RegExp
             let closingRegexp: RegExp
             if (tagname === "a") {

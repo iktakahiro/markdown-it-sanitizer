@@ -1,6 +1,6 @@
 {
     "name": "markdown-it-sanitizer",
-    "version": "0.4.3",
+    "version": "0.9.0",
     "description": "sanitizer for markdown-it.",
     "keywords": [
         "markdown-it-plugin",
@@ -8,14 +8,15 @@
         "markdown",
         "sanitizer"
     ],
-    "homepage": "https://github.com/svbergerem/markdown-it-sanitizer",
+    "homepage": "https://github.com/iktakahiro/markdown-it-sanitizer",
     "repository": {
         "type": "git",
-        "url": "git://github.com/svbergerem/markdown-it-sanitizer.git"
+        "url": "git://github.com/iktakahiro/markdown-it-sanitizer.git"
     },
     "bugs": {
-        "url": "https://github.com/svbergerem/markdown-it-sanitizer/issues"
+        "url": "https://github.com/iktakahiro/markdown-it-sanitizer/issues"
     },
+    "author": "Takahiro Ikeuchi @iktakahiro",
     "license": "MIT",
     "main": "./lib/index.js",
     "types": "./lib/index.d.ts",
